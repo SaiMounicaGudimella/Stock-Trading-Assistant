@@ -1,4 +1,3 @@
 yfinance
 duckdb
 pandas
-os
