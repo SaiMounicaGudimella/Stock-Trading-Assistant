@@ -2,6 +2,7 @@ import yfinance as yf
 import duckdb
 import pandas as pd
 from datetime import datetime
+import os 
 
 # 1. Download stock data
 ticker = "AAPL"
