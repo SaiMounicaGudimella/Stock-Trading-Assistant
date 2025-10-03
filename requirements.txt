@@ -1,3 +1,5 @@
 yfinance
 duckdb
 pandas
+streamlit
+matplotlib
