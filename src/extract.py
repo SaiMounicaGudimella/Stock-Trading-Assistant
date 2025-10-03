@@ -26,7 +26,7 @@ result = conn.execute("SELECT Date, Close FROM stock_data LIMIT 5").fetchdf()
 result = conn.execute("SELECT * FROM stock_data LIMIT 5").fetchdf()
 print(result)
 
-# Add a quick signal
+# 4. Add a quick signal
 df["MA50"] = df["Close"].rolling(50).mean()
 df["MA200"] = df["Close"].rolling(200).mean()
 latest = df.iloc[-1]
@@ -36,3 +36,10 @@ else:
     print("📉 No Buy signal yet")
 
 df.head(-5)
+
+# 5. Save as CSV (to commit into GitHub) 
+os.makedirs("data", exist_ok=True)
+csv_path = f"data/{ticker}_history.csv"
+df.to_csv(csv_path, index=False)
+
+print(f"✅ Data saved to {csv_path}")
