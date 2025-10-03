@@ -2,14 +2,17 @@ name: Daily Stock Fetch
 
 on:
   schedule:
-    - cron: "0 13 * * *"   # Runs every day at 1 PM UTC
-  workflow_dispatch:       # Allows manual run from GitHub UI
+    - cron: "0 13 * * *"   # Every day at 1 PM UTC
+  workflow_dispatch:       # Manual trigger allowed
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: true  # Needed to push back
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -18,3 +21,10 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run script
         run: python src/extract.py
+      - name: Commit and Push Data
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/*.csv stocks.duckdb
+          git commit -m "Daily data update [skip ci]" || echo "No changes to commit"
+          git push
