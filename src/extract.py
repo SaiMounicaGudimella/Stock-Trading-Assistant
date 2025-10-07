@@ -6,6 +6,7 @@ def extract_data(tickers, period="1y", interval="1d"):
     frames = []
     for t in tickers:
         df = yf.download(t, period=period, interval=interval)
+        df.columns = df.columns.droplevel(1)
         df["ticker"] = t
         frames.append(df.reset_index())
     data = pd.concat(frames)
