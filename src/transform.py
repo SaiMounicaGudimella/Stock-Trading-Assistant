@@ -3,7 +3,7 @@ import numpy as np
 
 def transform_data(df):
     df = df.sort_values(["ticker", "Date"])
-    df["ticker"] = ticker
+   
     # --- Moving Averages ---
     df["MA50"] = df.groupby("ticker")["Close"].transform(lambda x: x.rolling(50, min_periods=1).mean())
     df["MA200"] = df.groupby("ticker")["Close"].transform(lambda x: x.rolling(200, min_periods=1).mean())
