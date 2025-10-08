@@ -22,3 +22,17 @@ if latest["MA50"] > latest["MA200"]:
     st.success(f"📈 BUY signal for {ticker}")
 else:
     st.error(f"📉 No Buy signal yet")
+
+
+def plot_backtest(df, ticker="AAPL"):
+    tdf = df[df["ticker"] == ticker].dropna()
+    tdf["Cumulative Market"] = (1 + tdf["Return"]).cumprod()
+    tdf["Cumulative Strategy"] = (1 + tdf["Strategy"]).cumprod()
+
+    plt.figure(figsize=(10,5))
+    plt.plot(tdf["Date"], tdf["Cumulative Market"], label="Market Return")
+    plt.plot(tdf["Date"], tdf["Cumulative Strategy"], label="Strategy Return")
+    plt.title(f"Backtest Results: {ticker}")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
