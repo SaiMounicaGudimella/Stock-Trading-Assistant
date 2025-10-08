@@ -1,2 +1,2 @@
-Ticker,Total Return (%),Sharpe Ratio
-AAPL,8.36,3.13
+Ticker,Market Return (%),Strategy Return (%),Sharpe Ratio
+AAPL,14.13,-8.3,-0.52
